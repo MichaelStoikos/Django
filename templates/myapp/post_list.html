@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}All Posts - Django Blog{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-newspaper me-2"></i>All Posts</h1>
+    {% if user.is_authenticated %}
+    <a href="{% url 'myapp:post_new' %}" class="btn btn-success">
+        <i class="fas fa-plus me-2"></i>New Post
+    </a>
+    {% endif %}
+</div>
+
+{% if posts %}
+<div class="row">
+    {% for post in posts %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card post-card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text text-muted">
+                    {{ post.content|truncatewords:25 }}
+                </p>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <small class="text-muted">
+                        <i class="fas fa-user me-1"></i>{{ post.author.username }}
+                    </small>
+                    <small class="text-muted">
+                        <i class="fas fa-calendar me-1"></i>{{ post.published_date|date:"M d, Y" }}
+                    </small>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'myapp:post_detail' pk=post.pk %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-readme me-1"></i>Read More
+                    </a>
+                    {% if user == post.author %}
+                    <div>
+                        <a href="{% url 'myapp:post_edit' pk=post.pk %}" class="btn btn-outline-warning btn-sm">
+                            <i class="fas fa-edit me-1"></i>Edit
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item active">
+            <span class="page-link">{{ num }}</span>
+        </li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% else %}
+<div class="text-center py-5">
+    <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+    <h3 class="text-muted">No posts yet</h3>
+    <p class="text-muted">Be the first to create a blog post!</p>
+    {% if user.is_authenticated %}
+    <a href="{% url 'myapp:post_new' %}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Create Your First Post
+    </a>
+    {% else %}
+    <a href="{% url 'admin:login' %}" class="btn btn-primary">
+        <i class="fas fa-sign-in-alt me-2"></i>Login to Create Posts
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}
