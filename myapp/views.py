@@ -31,8 +31,9 @@ def post_detail(request, pk):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
+            comment.approved_comment = True  # Auto-approve comments
             comment.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('myapp:post_detail', pk=post.pk)
     else:
         form = CommentForm()
     return render(request, 'myapp/post_detail.html', {'post': post, 'form': form})
@@ -47,7 +48,7 @@ def post_new(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('myapp:post_detail', pk=post.pk)
     else:
         form = PostForm()
     return render(request, 'myapp/post_edit.html', {'form': form})
@@ -63,7 +64,7 @@ def post_edit(request, pk):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('myapp:post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
     return render(request, 'myapp/post_edit.html', {'form': form})
