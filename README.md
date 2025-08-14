@@ -65,7 +65,7 @@ Django/
 ### "Can't see my posts"
 - **Solution**: Make sure you're logged into admin and created posts
 
-## What You'll Learn 🎓
+## What I Have Learned
 
 - **Django basics** - How Django works
 - **Models** - How data is stored
@@ -73,23 +73,13 @@ Django/
 - **Templates** - How pages look
 - **Admin interface** - How to manage content
 
-## Need Help? 
-
-- **Django website**: [djangoproject.com](https://www.djangoproject.com/)
-- **Python website**: [python.org](https://www.python.org/)
-
 ## References
 
 - **Python Django explained**: https://youtu.be/0sMtoedWaf0?si=coyHBkXpyJX-V0UT
 - **How to install Django Python**: https://youtu.be/Uq7TkegTXRU?si=rdyeYggARFJuZKPP
 - **Little help for setup**: https://chatgpt.com/share/689e12e1-8370-8004-b08b-0ad05f19ac87
 - **Python code help with cursor**: [a relative link](cursor_help_with_django_project_setup.md)
-
-## Tips for Beginners
-
-1. **Start small** - Don't try to understand everything at once
-2. **Play around** - Try changing things and see what happens
-3. **Use the admin** - It's the easiest way to add content
-4. **Don't worry about errors** - They're part of learning!
+- **Python website**: https://www.python.org/downloads/
+- **Python Documentation**: https://docs.python.org/3/
 
 ---
